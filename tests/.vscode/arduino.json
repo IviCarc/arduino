@@ -1,0 +1,6 @@
+{
+    "port": "/dev/ttyS0",
+    "board": "arduino:avr:uno",
+    "programmer": "arduino:avrispmkii",
+    "sketch": "testNema17.ino"
+}
