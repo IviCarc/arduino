@@ -2,13 +2,11 @@
 #include <SoftwareSerial.h>
 
 SoftwareSerial Bluetooth(10, 11); // (TXD, RXD) of HC-05
-char data;
-int n = 0;
-char text;
+char dato;
 
 // PARTE MOTOR
 
-#define VELOCIDAD 3000
+#define VELOCIDAD 1000
 int CIRCUNFERENCIA = 15.71;    // MILIMETROS
 float DISTANCIAPASO = 0.07855; // MILIMETROS
 
@@ -22,7 +20,7 @@ void setup()
   Serial.begin(9600);
   Serial.println("LISTO");
 
-  // PARTE MOTOR
+  // PARTES MOTOR
 
   pinMode(steps, OUTPUT);
   pinMode(direccion, OUTPUT);
@@ -30,33 +28,29 @@ void setup()
   digitalWrite(direccion, HIGH);
 }
 
-// mm guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
-String mm = "";
+// numeroTemporal guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
+String numeroTemporal = "";
 
 int inputs[3];
 int contador = 0;
 
-int isValid = 0; // Booleano indica si se recibió el carácter "/"
+int ready = 0; // Booleano indica si se recibieron los 3 números
 
 void loop() {
   if (Bluetooth.available()) {
-      Serial.println("DATO RECIBIDO");
-    data = (Bluetooth.read());
-    if (data == '/') {
-        inputs[contador] = mm.toInt();
+    dato = (Bluetooth.read());
+    if (dato == '/') {
+        inputs[contador] = numeroTemporal.toInt();
         contador += 1;
-        mm = "";
+        numeroTemporal = "";
         if (contador == 3) {
-            isValid = 1;
+            ready = 1;
         }
     } else {
-        mm += data; // Añade a mm el último carácter enviado en caso de que no sea un "/" 
+        numeroTemporal += dato; // Añade a numeroTemporal el último carácter enviado en caso de que no sea un "/" 
     }
 
-  if (isValid == 1) {
-      Serial.println(inputs[0]);
-      Serial.println(inputs[1]);
-      Serial.println(inputs[2]);
+  if (ready == 1) {
 
     for (int i = 0; i < inputs[2]; i++) {
       for (int j = 0; j<inputs[1] * 200; j++) {      //Equivale al numero de vueltas (200 es 360º grados) o micropasos
@@ -66,12 +60,10 @@ void loop() {
       }
       delay(1000);
     }
-          
-        isValid = 0;
-        mm = ""; // mm debe sobreescribirse
+        ready = 0;
+        numeroTemporal = ""; // numeroTemporal debe sobreescribirse
         contador = 0;
-        Serial.println("FINALIZADO");
-
+        Serial.println("LISTO");
     }
   }
 }
