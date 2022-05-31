@@ -12,8 +12,8 @@ char text;
 int CIRCUNFERENCIA = 15.71;    // MILIMETROS
 float DISTANCIAPASO = 0.07855; // MILIMETROS
 
-int steps = 2;
-int direccion = 3;
+int stepsNEMA = 2;
+int direccionNEMA = 3;
 int pasos = 200;
 
 void setup()
@@ -24,10 +24,10 @@ void setup()
 
   // PARTE MOTOR
 
-  pinMode(steps, OUTPUT);
-  pinMode(direccion, OUTPUT);
+  pinMode(stepsNEMA, OUTPUT);
+  pinMode(direccionNEMA, OUTPUT);
 
-  digitalWrite(direccion, HIGH);
+  digitalWrite(direccionNEMA, HIGH);
 }
 
 // mm guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
@@ -53,8 +53,8 @@ void loop() {
       int vueltas = mm.toFloat() * 200;
 
       for (int i = 0; i<vueltas; i++) {      //Equivale al numero de vueltas (200 es 360º grados) o micropasos
-        digitalWrite(steps, HIGH);  // This LOW to HIGH change is what creates the
-        digitalWrite(steps, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
+        digitalWrite(stepsNEMA, HIGH);  // This LOW to HIGH change is what creates the
+        digitalWrite(stepsNEMA, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
         delayMicroseconds(VELOCIDAD);     // Regula la velocidad, cuanto mas bajo mas velocidad.
       }
       

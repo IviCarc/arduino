@@ -6,13 +6,16 @@ char dato;
 
 // PARTE MOTOR
 
-#define VELOCIDAD 650
+#define VELOCIDADNEMA 2000
+#define VELOCIDADEM 4000
 int CIRCUNFERENCIA = 15.71;    // MILIMETROS
 float DISTANCIAPASO = 0.07855; // MILIMETROS
 
-int steps = 2;
-int direccion = 3;
+int stepsNEMA = 2;
+int direccionNEMA = 3;
 int pasos = 200;
+int stepsEM= 4;
+int direccionEM= 5;
 
 void setup()
 {
@@ -22,16 +25,21 @@ void setup()
 
   // PARTES MOTOR
 
-  pinMode(steps, OUTPUT);
-  pinMode(direccion, OUTPUT);
+  pinMode(stepsNEMA, OUTPUT);
+  pinMode(direccionNEMA, OUTPUT);
 
-  digitalWrite(direccion, HIGH);
+  digitalWrite(direccionNEMA, HIGH);
+
+  pinMode(stepsEM,OUTPUT);
+  pinMode(direccionEM,OUTPUT);
+
+  digitalWrite(direccionEM, HIGH);
 }
 
 // numeroTemporal guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
 String numeroTemporal = "";
 
-float inputs[3];
+float inputs[3]; // [ancho, longitud, cantidad]
 int contador = 0;
 
 int ready = 0; // Booleano indica si se recibieron los 3 números
@@ -51,12 +59,19 @@ void loop() {
     }
 
   if (ready == 1) {
+    
+  for (int j = 0; j<inputs[0] * 200; j++) {      //Equivale al numero de vueltas (200 es 360º grados) o micropasos
+        digitalWrite(stepsEM, HIGH);  // This LOW to HIGH change is what creates the
+        digitalWrite(stepsEM, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
+        delayMicroseconds(VELOCIDADEM);     // Regula la velocidad, cuanto mas bajo mas velocidad.
+   }
 
     for (int i = 0; i < inputs[2]; i++) {
+
       for (int j = 0; j<inputs[1] * 200; j++) {      //Equivale al numero de vueltas (200 es 360º grados) o micropasos
-        digitalWrite(steps, HIGH);  // This LOW to HIGH change is what creates the
-        digitalWrite(steps, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
-        delayMicroseconds(VELOCIDAD);     // Regula la velocidad, cuanto mas bajo mas velocidad.
+        digitalWrite(stepsNEMA, HIGH);  // This LOW to HIGH change is what creates the
+        digitalWrite(stepsNEMA, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
+        delayMicroseconds(VELOCIDADNEMA);     // Regula la velocidad, cuanto mas bajo mas velocidad.
       }
       delay(1000);
     }

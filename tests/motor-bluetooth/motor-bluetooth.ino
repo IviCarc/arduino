@@ -14,8 +14,8 @@ char text;
 int CIRCUNFERENCIA = 15.71;    // MILIMETROS
 float DISTANCIAPASO = 0.07855; // MILIMETROS
 
-int steps = 2;
-int direccion = 3;
+int stepsNEMA = 2;
+int direccionNEMA = 3;
 int pasos = 200;
 
 void setup()
@@ -27,8 +27,8 @@ void setup()
 
   // PARTE MOTOR
 
-  pinMode(steps, OUTPUT);
-  pinMode(direccion, OUTPUT);
+  pinMode(stepsNEMA, OUTPUT);
+  pinMode(direccionNEMA, OUTPUT);
 }
 
 String mm = "";
