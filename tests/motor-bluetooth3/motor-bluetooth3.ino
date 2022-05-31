@@ -6,7 +6,7 @@ char dato;
 
 // PARTE MOTOR
 
-#define VELOCIDAD 1000
+#define VELOCIDAD 650
 int CIRCUNFERENCIA = 15.71;    // MILIMETROS
 float DISTANCIAPASO = 0.07855; // MILIMETROS
 
@@ -31,7 +31,7 @@ void setup()
 // numeroTemporal guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
 String numeroTemporal = "";
 
-int inputs[3];
+float inputs[3];
 int contador = 0;
 
 int ready = 0; // Booleano indica si se recibieron los 3 números
@@ -40,7 +40,7 @@ void loop() {
   if (Bluetooth.available()) {
     dato = (Bluetooth.read());
     if (dato == '/') {
-        inputs[contador] = numeroTemporal.toInt();
+        inputs[contador] = numeroTemporal.toFloat();
         contador += 1;
         numeroTemporal = "";
         if (contador == 3) {
