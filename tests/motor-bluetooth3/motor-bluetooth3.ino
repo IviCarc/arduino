@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include <SoftwareSerial.h>
+#include <Servo.h>
 
 SoftwareSerial Bluetooth(10, 11); // (TXD, RXD) of HC-05
 char dato;
@@ -17,11 +18,14 @@ int pasos = 200;
 int stepsEM= 4;
 int direccionEM= 5;
 
+Servo servoMotor; 
+
 void setup()
 {
   Bluetooth.begin(9600);
   Serial.begin(9600);
   Serial.println("LISTO");
+  servoMotor.attach(12);
 
   // PARTES MOTOR
 
@@ -64,6 +68,7 @@ void loop() {
         digitalWrite(stepsEM, HIGH);  // This LOW to HIGH change is what creates the
         digitalWrite(stepsEM, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
         delay(velocidadEM);     // Regula la velocidad, cuanto mas bajo mas velocidad.
+        servoMotor.write(45);
    }
 
     for (int i = 0; i < inputs[2]; i++) {
@@ -78,6 +83,7 @@ void loop() {
         ready = 0;
         numeroTemporal = ""; // numeroTemporal debe sobreescribirse
         contador = 0;
+        servoMotor.write(90);
         Serial.println("LISTO");
     }
   }
