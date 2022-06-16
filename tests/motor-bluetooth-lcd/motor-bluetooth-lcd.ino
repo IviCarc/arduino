@@ -78,25 +78,28 @@ void loop() {
         digitalWrite(stepsEM, HIGH);  // This LOW to HIGH change is what creates the
         digitalWrite(stepsEM, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
         delay(velocidadEM);     // Regula la velocidad, cuanto mas bajo mas velocidad.
-        servoMotor.write(45);
+        
    }
 
     for (int i = 0; i < inputs[2]; i++) {
-
+      servoMotor.write(0);
+      delay(2000);
       for (int j = 0; j<inputs[1] * 200; j++) {      //Equivale al numero de vueltas (200 es 360º grados) o micropasos
         digitalWrite(stepsNEMA, HIGH);  // This LOW to HIGH change is what creates the
         digitalWrite(stepsNEMA, LOW); // al A4988 de avanzar una vez por cada pulso de energia.
         delayMicroseconds(velocidadNEMA);     // Regula la velocidad, cuanto mas bajo mas velocidad.
       }
-      delay(1000);
+      servoMotor.write(180);
+      delay(2000);
+      
     }
         ready = 0;
         numeroTemporal = ""; // numeroTemporal debe sobreescribirse
         contador = 0;
-        servoMotor.write(90);
         Serial.println("LISTO");
         lcd.clear();
         lcd.print("LISTO");
     }
+    servoMotor.write(0);
   }
 }
