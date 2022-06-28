@@ -103,3 +103,9 @@ void loop() {
     servoMotor.write(0);
   }
 }
+
+/*CONSUMOS Y VOLTAJES
+NEMA 17 a 17 VOLTIOS = 0,30 Amp
+EM600 a 9 VOLTIOS = 0,14 Amp
+Máximo Corriente Nema17 = 0,80 Amp
+*/
