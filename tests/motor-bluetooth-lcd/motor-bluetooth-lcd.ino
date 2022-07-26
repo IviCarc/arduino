@@ -4,20 +4,23 @@
 #include <LiquidCrystal_I2C.h>
 
 
-SoftwareSerial Bluetooth(10, 11); // (TXD, RXD) of HC-05
+SoftwareSerial Bluetooth(10, 11); 
+// (TXD, RXD) of HC-05 
+// TXD: CABLE VERDE 
+// RXD: CABLE MARRÓN 
 LiquidCrystal_I2C lcd(0x27,16,2);
 char dato;
 
 // PARTE MOTOR
 
-int velocidadNEMA = 2000;
+int velocidadNEMA = 7000;
 int velocidadEM = 20;
-int DIAMETRO = 50; // MM
-float CIRCUNFERENCIA = DIAMETRO * PI;    // MILIMETROS
-float DISTANCIAPASO = CIRCUNFERENCIA / 200; // MILIMETROS
+float DIAMETRO = 1.10; // CM
+float CIRCUNFERENCIA = DIAMETRO * PI;    // CM
+float DISTANCIAPASO = CIRCUNFERENCIA / 200; // CM
 
-int stepsNEMA = 2;
-int direccionNEMA = 3;
+int stepsNEMA = 2; // CABLE VERDE
+int direccionNEMA = 3; // CABLE GRIS
 int pasos = 200;
 int stepsEM= 4;
 int direccionEM= 5;
@@ -29,25 +32,27 @@ void setup()
   Bluetooth.begin(9600);
   Serial.begin(9600);
   Serial.println("LISTO");
-  servoMotor.attach(12);
+  servoMotor.attach(12); // CABLE AZUL
 
   // PARTES MOTOR
 
   pinMode(stepsNEMA, OUTPUT);
   pinMode(direccionNEMA, OUTPUT);
 
-  digitalWrite(direccionNEMA, HIGH);
+  digitalWrite(direccionNEMA, LOW);
 
   pinMode(stepsEM,OUTPUT);
   pinMode(direccionEM,OUTPUT);
 
-  digitalWrite(direccionEM, HIGH);
+  digitalWrite(direccionEM, LOW);
 
   lcd.init();
   lcd.clear();
   lcd.backlight();
   lcd.setCursor(0,0);
   lcd.print("LISTO");
+
+  
 }
 
 // numeroTemporal guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
@@ -79,12 +84,12 @@ void loop() {
 
   // MOTOR PEQUEÑO
 
-  for (int j = 0; j<inputs[0] * 48; j++) { 
-        digitalWrite(stepsEM, HIGH);
-        digitalWrite(stepsEM, LOW);
-        delay(velocidadEM);     // Regula la velocidad, cuanto mas bajo mas velocidad.
+  // for (int j = 0; j<inputs[0] * 48; j++) { 
+  //       digitalWrite(stepsEM, HIGH);
+  //       digitalWrite(stepsEM, LOW);
+  //       delay(velocidadEM);     // Regula la velocidad, cuanto mas bajo mas velocidad.
         
-   }
+  //  }
 
     // CANTIDAD DE CABLES NEMA
 
@@ -94,7 +99,7 @@ void loop() {
 
       // LARGO CABLES NEMA
 
-      for (float j = 0; j< (inputs[1] /  DISTANCIAPASO) * 10; j++) {     
+      for (float j = 0; j< (inputs[1] /  DISTANCIAPASO); j++) {     
         digitalWrite(stepsNEMA, HIGH);  
         digitalWrite(stepsNEMA, LOW);
         delayMicroseconds(velocidadNEMA);  // Regula la velocidad, cuanto mas bajo mas velocidad.
