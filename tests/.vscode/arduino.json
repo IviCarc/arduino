@@ -1,6 +1,6 @@
 {
-    "port": "/dev/ttyS0",
+    "port": "COM3",
     "board": "arduino:avr:uno",
     "programmer": "arduino:avrispmkii",
-    "sketch": "testNema17.ino"
+    "sketch": "motor-bluetooth-lcd\\motor-bluetooth-lcd.ino"
 }

@@ -4,26 +4,25 @@
 #include <LiquidCrystal_I2C.h>
 
 
-SoftwareSerial Bluetooth(10, 11); 
-// (TXD, RXD) of HC-05 
+SoftwareSerial Bluetooth(2, 3); 
+// (RXD, TXD) of HC-05 
 // TXD: CABLE VERDE 
 // RXD: CABLE MARRÓN 
 LiquidCrystal_I2C lcd(0x27,16,2);
 char dato;
 
+// SG90 PIN 6
+
 // PARTE MOTOR
 
 int velocidadNEMA = 7000;
-int velocidadEM = 20;
-float DIAMETRO = 1.10; // CM
+float DIAMETRO = 0.97; // CM
 float CIRCUNFERENCIA = DIAMETRO * PI;    // CM
 float DISTANCIAPASO = CIRCUNFERENCIA / 200; // CM
 
-int stepsNEMA = 2; // CABLE VERDE
-int direccionNEMA = 3; // CABLE GRIS
+int stepsNEMA = 10; // CABLE VERDE
+int direccionNEMA = 11; // CABLE GRIS
 int pasos = 200;
-int stepsEM= 4;
-int direccionEM= 5;
 
 Servo servoMotor; 
 
@@ -32,7 +31,7 @@ void setup()
   Bluetooth.begin(9600);
   Serial.begin(9600);
   Serial.println("LISTO");
-  servoMotor.attach(12); // CABLE AZUL
+  servoMotor.attach(9); // CABLE AZUL
 
   // PARTES MOTOR
 
@@ -41,18 +40,11 @@ void setup()
 
   digitalWrite(direccionNEMA, LOW);
 
-  pinMode(stepsEM,OUTPUT);
-  pinMode(direccionEM,OUTPUT);
-
-  digitalWrite(direccionEM, LOW);
-
   lcd.init();
   lcd.clear();
   lcd.backlight();
   lcd.setCursor(0,0);
   lcd.print("LISTO");
-
-  
 }
 
 // numeroTemporal guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
@@ -93,7 +85,10 @@ void loop() {
 
     // CANTIDAD DE CABLES NEMA
 
-    for (int i = 0; i < inputs[2]; i++) {
+    Serial.println(inputs[1] /  DISTANCIAPASO);
+
+    for (int i = 0
+    ; i < inputs[2]; i++) {
       servoMotor.write(0);
       delay(2000);
 
@@ -121,6 +116,5 @@ void loop() {
 
 /*CONSUMOS Y VOLTAJES
 NEMA 17 a 17 VOLTIOS = 0,30 Amp
-EM600 a 9 VOLTIOS = 0,14 Amp
 Máximo Corriente Nema17 = 0,80 Amp
 */
