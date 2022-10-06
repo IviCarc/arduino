@@ -30,7 +30,7 @@ void setup()
 {
   Bluetooth.begin(9600);
   Serial.begin(9600);
-  Serial.println("LISTO");
+  Serial.println("HOLA");
   servoMotor.attach(9); // CABLE AZUL
 
   // PARTES MOTOR
@@ -58,6 +58,7 @@ int ready = 0; // Booleano indica si se recibieron los 3 números
 void loop() {
   if (Bluetooth.available()) {
     dato = (Bluetooth.read());
+    Serial.println("DATO");    
     if (dato == '/') {
         inputs[contador] = numeroTemporal.toFloat();
         contador += 1;

@@ -120,7 +120,7 @@
       },
       "track_widths": [
         0.0,
-        1.0
+        1.75
       ],
       "via_dimensions": [
         {
@@ -382,7 +382,6 @@
         "nets": [
           "Net-(A1-Pad13)",
           "Net-(R1-Pad1)",
-          "Net-(R1-Pad2)",
           "unconnected-(A1-Pad10)",
           "unconnected-(A1-Pad11)",
           "unconnected-(A1-Pad12)",
@@ -391,17 +390,13 @@
           "unconnected-(A2-Pad10)",
           "unconnected-(A2-Pad11)",
           "unconnected-(A2-Pad12)",
-          "unconnected-(A2-Pad13)",
-          "unconnected-(A2-Pad14)",
           "unconnected-(A2-Pad15)",
           "unconnected-(A2-Pad16)",
           "unconnected-(A2-Pad19)",
           "unconnected-(A2-Pad2)",
           "unconnected-(A2-Pad20)",
-          "unconnected-(A2-Pad21)",
           "unconnected-(A2-Pad22)",
           "unconnected-(A2-Pad23)",
-          "unconnected-(A2-Pad24)",
           "unconnected-(A2-Pad27)",
           "unconnected-(A2-Pad28)",
           "unconnected-(A2-Pad29)",
@@ -410,7 +405,6 @@
           "unconnected-(A2-Pad31)",
           "unconnected-(A2-Pad32)",
           "unconnected-(A2-Pad4)",
-          "unconnected-(A2-Pad6)",
           "unconnected-(A2-Pad9)",
           "unconnected-(RV1-Pad3)",
           "unconnected-(hc-5-Pad1)",
