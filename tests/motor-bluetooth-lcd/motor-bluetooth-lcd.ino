@@ -30,7 +30,11 @@ void setup()
 {
   Bluetooth.begin(9600);
   Serial.begin(9600);
+<<<<<<< HEAD
   Serial.println("NASHE");
+=======
+  Serial.println("HOLA");
+>>>>>>> 4fc7992acf17d6295fc22be87d61ffe0f49e3615
   servoMotor.attach(9); // CABLE AZUL
 
   // PARTES MOTOR
@@ -58,7 +62,11 @@ int ready = 0; // Booleano indica si se recibieron los 3 números
 void loop() {
   if (Bluetooth.available()) {
     dato = (Bluetooth.read());
+<<<<<<< HEAD
     Serial.println(dato);
+=======
+    Serial.println("DATO");    
+>>>>>>> 4fc7992acf17d6295fc22be87d61ffe0f49e3615
     if (dato == '/') {
         inputs[contador] = numeroTemporal.toFloat();
         contador += 1;
