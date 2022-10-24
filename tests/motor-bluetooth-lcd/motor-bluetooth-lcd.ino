@@ -6,8 +6,7 @@
 
 SoftwareSerial Bluetooth(3, 2); 
 // (RXD, TXD) del arduino
-// TXD: CABLE VERDE 
-// RXD: CABLE MARRÓN 
+
 LiquidCrystal_I2C lcd(0x27,16,2);
 char dato;
 
@@ -52,10 +51,10 @@ void setup()
 // numeroTemporal guarda los numeros enviados hasta que se reciba un "/", en ese momento la variable se sobreescribe y el giro es ejecutado
 String numeroTemporal = "";
 
-float inputs[2]; // [ancho, longitud, cantidad]
+float inputs[2]; // [longitud, cantidad]
 int contador = 0;
 
-int ready = 0; // Booleano indica si se recibieron los 3 números
+int ready = 0; // Booleano indica si se recibieron los 2 números
 
 void loop() {
   if (Bluetooth.available()) {
@@ -76,7 +75,7 @@ void loop() {
   if (ready == 1) {
     lcd.clear();
     lcd.print("CORTANDO ");
-    lcd.print(int(inputs[0]));
+    lcd.print(inputs[0]);
     lcd.print("CM");
 
     // CANTIDAD DE CABLES NEMA
@@ -85,9 +84,6 @@ void loop() {
     ; i < inputs[1]; i++) {
       servoMotor.write(20);
       lcd.setCursor(0,1);
-      // lcd.print(i);
-      // lcd.print("/");
-      // lcd.print(int(inputs[1]));
 
       // LARGO CABLES NEMA
 
@@ -110,8 +106,3 @@ void loop() {
     servoMotor.write(20);
   }
 }
-
-/*CONSUMOS Y VOLTAJES
-NEMA 17 a 17 VOLTIOS = 0,30 Amp
-Máximo Corriente Nema17 = 0,80 Amp
-*/
