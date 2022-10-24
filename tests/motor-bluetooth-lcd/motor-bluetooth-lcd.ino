@@ -19,8 +19,8 @@ float DIAMETRO = 0.97; // CM
 float CIRCUNFERENCIA = DIAMETRO * PI;    // CM
 float DISTANCIAPASO = CIRCUNFERENCIA / 200; // CM
 
-int stepsNEMA = 10; // CABLE VERDE
-int direccionNEMA = 11; // CABLE GRIS
+int stepsNEMA = 10;
+int direccionNEMA = 11;
 int pasos = 200;
 
 Servo servoMotor; 
