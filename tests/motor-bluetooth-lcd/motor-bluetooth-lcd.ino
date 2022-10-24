@@ -30,12 +30,10 @@ void setup()
 {
   Bluetooth.begin(9600);
   Serial.begin(9600);
-<<<<<<< HEAD
   Serial.println("NASHE");
-=======
   Serial.println("HOLA");
->>>>>>> 4fc7992acf17d6295fc22be87d61ffe0f49e3615
   servoMotor.attach(9); // CABLE AZUL
+  servoMotor.write(20);
 
   // PARTES MOTOR
 
@@ -62,11 +60,8 @@ int ready = 0; // Booleano indica si se recibieron los 3 números
 void loop() {
   if (Bluetooth.available()) {
     dato = (Bluetooth.read());
-<<<<<<< HEAD
     Serial.println(dato);
-=======
     Serial.println("DATO");    
->>>>>>> 4fc7992acf17d6295fc22be87d61ffe0f49e3615
     if (dato == '/') {
         inputs[contador] = numeroTemporal.toFloat();
         contador += 1;
@@ -88,13 +83,11 @@ void loop() {
 
     for (int i = 0
     ; i < inputs[1]; i++) {
- 
-      servoMotor.write(0);
-      delay(2000);
+      servoMotor.write(20);
       lcd.setCursor(0,1);
-      lcd.print(i);
-      lcd.print("/");
-      lcd.print(int(inputs[1]));
+      // lcd.print(i);
+      // lcd.print("/");
+      // lcd.print(int(inputs[1]));
 
       // LARGO CABLES NEMA
 
@@ -103,9 +96,9 @@ void loop() {
         digitalWrite(stepsNEMA, LOW);
         delayMicroseconds(velocidadNEMA);  // Regula la velocidad, cuanto mas bajo mas velocidad.
       }
-      servoMotor.write(180);
-      delay(2000);
-      
+      servoMotor.write(180); // CORTA
+      delay(1000);
+
     }
         ready = 0;
         numeroTemporal = ""; // numeroTemporal debe sobreescribirse
@@ -114,7 +107,7 @@ void loop() {
         lcd.clear();
         lcd.print("LISTO");
     }
-    servoMotor.write(0);
+    servoMotor.write(20);
   }
 }
 
