@@ -14,7 +14,7 @@ char dato;
 
 // PARTE MOTOR
 
-int velocidadNEMA = 1700;
+int velocidadNEMA = 2000;
 float DIAMETRO = 0.88; // CM
 float CIRCUNFERENCIA = DIAMETRO * PI;    // CM
 float DISTANCIAPASO = CIRCUNFERENCIA / 200; // CM
@@ -25,9 +25,10 @@ int pasos = 200;
 
 Servo servoMotor;
 
-int gradosPelado = 160;
+int gradosPelado = 132 
+;
 int gradosCorte = 180;
-int gradosReposo = 60;
+int gradosReposo = 0;
 
 void moverMotor(float largoCorte) {
   for (float j = 0; j < (largoCorte / DISTANCIAPASO); j++) {
@@ -71,10 +72,11 @@ int ready = 0; // Booleano indica si se recibieron los 2 números
 void loop() {
   if (Bluetooth.available() > 0) {
     dato = (Bluetooth.read());
-    Serial.println(dato);
-    if (dato != 'q') {
+    // Serial.println(dato);
+    if (dato == '0' || dato == '1' || dato == '2' || dato == '3' || dato == '4' ||dato == '5' || dato == '6' ||dato == '7' || dato == '8' || dato == '9' || dato == '/' ) {
       if (dato == '/') {
         inputs[contador] = numeroTemporal.toFloat();
+        Serial.println(numeroTemporal);
         contador += 1;
         numeroTemporal = "";
         if (contador == 2) {
@@ -103,6 +105,10 @@ void loop() {
         lcd.print(i + 1);
         lcd.print("/");
         lcd.print(int(inputs[1]));
+
+        Serial.println(inputs[0]);
+        Serial.println(inputs[1]);
+
         servoMotor.write(gradosReposo);
         delay(500);
         moverMotor(1);
@@ -117,7 +123,7 @@ void loop() {
         delay(500);
         moverMotor(1);
         servoMotor.write(gradosCorte);
-        delay(1000);
+        delay(1500);
         servoMotor.write(gradosReposo);
       }
       delay(500);
