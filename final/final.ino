@@ -1,6 +1,8 @@
+#include <PWMServo.h>
+
 #include <Wire.h>
 #include <SoftwareSerial.h>
-#include <Servo.h>
+// #include <Servo.h>
 #include <LiquidCrystal_I2C.h>
 
 SoftwareSerial Bluetooth(3, 2);
@@ -13,8 +15,8 @@ char dato;
 
 // PARTE MOTOR
 
-int velocidadNEMA = 3000;
-float DIAMETRO = 0.88;                       // CM
+int velocidadNEMA = 1800;
+float DIAMETRO = 0.90;                       // CM
 float CIRCUNFERENCIA = DIAMETRO * PI;        // CM
 float DISTANCIAPASO = CIRCUNFERENCIA / 200;  // CM
 
@@ -22,7 +24,8 @@ int stepsNEMA = 10;
 int direccionNEMA = 11;
 int pasos = 200;
 
-Servo servoMotor;
+// Servo servoMotor;
+PWMServo servoMotor;
 
 int gradosPelado = 120;
 int gradosCorte = 180;
@@ -86,6 +89,7 @@ void loop() {
   }
 
   if (ready == 1) {
+
     float largoCable = inputs[0];
     float cantCables = inputs[1];
     float largoPelado = inputs[2];
