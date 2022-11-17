@@ -27,7 +27,7 @@ int pasos = 200;
 // Servo servoMotor;
 PWMServo servoMotor;
 
-int gradosPelado = 120;
+int gradosPelado = 90;
 int gradosCorte = 180;
 int gradosReposo = 0;
 
