@@ -15,7 +15,7 @@ char dato;
 
 // PARTE MOTOR
 
-int velocidadNEMA = 1800;
+int velocidadNEMA = 2500;
 float DIAMETRO = 0.90;                       // CM
 float CIRCUNFERENCIA = DIAMETRO * PI;        // CM
 float DISTANCIAPASO = CIRCUNFERENCIA / 200;  // CM
@@ -27,7 +27,7 @@ int pasos = 200;
 // Servo servoMotor;
 PWMServo servoMotor;
 
-int gradosPelado = 90;
+int gradosPelado = 117;
 int gradosCorte = 180;
 int gradosReposo = 0;
 
@@ -44,9 +44,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("NASHE");
   Serial.println("HOLA");
-  servoMotor.attach(9);  // CABLE AZUL
-  servoMotor.write(gradosReposo);
-
+  
   // PARTES MOTOR
 
   pinMode(stepsNEMA, OUTPUT);
@@ -89,6 +87,8 @@ void loop() {
   }
 
   if (ready == 1) {
+
+    servoMotor.attach(9);  // CABLE AZUL
 
     float largoCable = inputs[0];
     float cantCables = inputs[1];
@@ -147,5 +147,7 @@ void loop() {
     Serial.println("LISTO");
     lcd.clear();
     lcd.print("LISTO");
+
+    servoMotor.detach();  // CABLE AZUL
   }
 }
