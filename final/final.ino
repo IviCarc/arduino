@@ -27,7 +27,7 @@ int pasos = 200;
 // Servo servoMotor;
 PWMServo servoMotor;
 
-int gradosPelado = 117;
+int gradosPelado = 105;
 int gradosCorte = 180;
 int gradosReposo = 0;
 
@@ -70,14 +70,14 @@ int ready = 0;  // Booleano indica si se recibieron los 2 números
 void loop() {
   if (Bluetooth.available() > 0) {
     dato = (Bluetooth.read());
-    // Serial.println(dato);
+    Serial.println(dato);
     if (dato == '.' || dato == '0' || dato == '1' || dato == '2' || dato == '3' || dato == '4' || dato == '5' || dato == '6' || dato == '7' || dato == '8' || dato == '9' || dato == '/') {
       if (dato == '/') {
         inputs[contador] = numeroTemporal.toFloat();
         Serial.println(numeroTemporal);
         contador += 1;
         numeroTemporal = "";
-        if (contador == 3) {
+        if (contador == 4) {
           ready = 1;
         }
       } else {
@@ -93,6 +93,7 @@ void loop() {
     float largoCable = inputs[0];
     float cantCables = inputs[1];
     float largoPelado = inputs[2];
+    float diametroCable = inputs[3];
 
     lcd.clear();
     lcd.print("CORTANDO ");
@@ -111,6 +112,10 @@ void loop() {
 
       Serial.println(largoCable);
       Serial.println(cantCables);
+
+      if (diametroCable == 0){
+        gradosPelado = 117;
+      }
 
       servoMotor.write(gradosReposo);
       delay(500);
@@ -144,7 +149,7 @@ void loop() {
     ready = 0;
     numeroTemporal = "";  // numeroTemporal debe sobreescribirse
     contador = 0;
-    Serial.println("LISTO");
+    Serial.println("LISTO LLEGO BIEN");
     lcd.clear();
     lcd.print("LISTO");
 
